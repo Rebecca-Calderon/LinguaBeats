@@ -44,7 +44,7 @@
 
       <div class="logo">
         <h1><a href="index.html">LinguaBeats</a></h1>
-		<p>This is a simple website created without hosting it on a server.</p>
+		<!-- <p>This is a simple website created without hosting it on a server.</p> -->
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -96,23 +96,29 @@
 
           <div class="col-lg-4">
             <div class="portfolio-info">
-              <h3>Project information</h3>
-              <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
-              </ul>
-            </div>
-            <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
-              <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-              </p>
-            </div>
-          </div>
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+              <h3>Spanish Song Lyrics</h3>
+			  <script>
+				$(document).ready(function() {
+					setInterval(function() {
+						$.get("/get-current-song", function(data) {
+							if(data != document.getElementById("spotifyPlayer").srcdoc)
+							document.getElementById("spotifyPlayer").srcdoc = data;
+						})
+						$.get("/get-song-lyrics", function(data) {
+							if(data[0] != document.getElementById("current-song-original").innerText)
+							document.getElementById("current-song-original").innerText = data[0];
+							if(data[1] != document.getElementById("current-song-translated").innerText)
+							document.getElementById("current-song-translated").innerText = data[1];
+							})
+						$.get("/get-all-songs-in-queue", function(data) {
+						})
+					}, 1000); //Fetches new song data every 10 seconds, adjust this value as needed
+				});
+				</script>
 
-        </div>
+            </div>
+            
 
       </div>
     </section><!-- End Portfolio Details Section -->
